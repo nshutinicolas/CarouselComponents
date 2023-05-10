@@ -14,6 +14,9 @@
 		F4A943402A08EF28002E979D /* CarouselsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4A9433F2A08EF28002E979D /* CarouselsTests.swift */; };
 		F4A9434A2A08EF28002E979D /* CarouselsUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4A943492A08EF28002E979D /* CarouselsUITests.swift */; };
 		F4A9434C2A08EF28002E979D /* CarouselsUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4A9434B2A08EF28002E979D /* CarouselsUITestsLaunchTests.swift */; };
+		F4A9435A2A08F1B3002E979D /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4A943592A08F1B3002E979D /* HomeView.swift */; };
+		F4A9435C2A08F1C8002E979D /* InfiniteCarousel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4A9435B2A08F1C8002E979D /* InfiniteCarousel.swift */; };
+		F4A9435F2A08F40B002E979D /* PageControls.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4A9435E2A08F40B002E979D /* PageControls.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -44,6 +47,9 @@
 		F4A943452A08EF28002E979D /* CarouselsUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CarouselsUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		F4A943492A08EF28002E979D /* CarouselsUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CarouselsUITests.swift; sourceTree = "<group>"; };
 		F4A9434B2A08EF28002E979D /* CarouselsUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CarouselsUITestsLaunchTests.swift; sourceTree = "<group>"; };
+		F4A943592A08F1B3002E979D /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
+		F4A9435B2A08F1C8002E979D /* InfiniteCarousel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfiniteCarousel.swift; sourceTree = "<group>"; };
+		F4A9435E2A08F40B002E979D /* PageControls.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PageControls.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -94,7 +100,10 @@
 		F4A9432D2A08EF22002E979D /* Carousels */ = {
 			isa = PBXGroup;
 			children = (
+				F4A9435D2A08F3F4002E979D /* PageControlls */,
+				F4A943582A08F197002E979D /* Carousel */,
 				F4A9432E2A08EF22002E979D /* CarouselsApp.swift */,
+				F4A943592A08F1B3002E979D /* HomeView.swift */,
 				F4A943302A08EF22002E979D /* ContentView.swift */,
 				F4A943322A08EF27002E979D /* Assets.xcassets */,
 				F4A943342A08EF27002E979D /* Preview Content */,
@@ -125,6 +134,22 @@
 				F4A9434B2A08EF28002E979D /* CarouselsUITestsLaunchTests.swift */,
 			);
 			path = CarouselsUITests;
+			sourceTree = "<group>";
+		};
+		F4A943582A08F197002E979D /* Carousel */ = {
+			isa = PBXGroup;
+			children = (
+				F4A9435B2A08F1C8002E979D /* InfiniteCarousel.swift */,
+			);
+			path = Carousel;
+			sourceTree = "<group>";
+		};
+		F4A9435D2A08F3F4002E979D /* PageControlls */ = {
+			isa = PBXGroup;
+			children = (
+				F4A9435E2A08F40B002E979D /* PageControls.swift */,
+			);
+			path = PageControlls;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -257,6 +282,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F4A9435A2A08F1B3002E979D /* HomeView.swift in Sources */,
+				F4A9435F2A08F40B002E979D /* PageControls.swift in Sources */,
+				F4A9435C2A08F1C8002E979D /* InfiniteCarousel.swift in Sources */,
 				F4A943312A08EF22002E979D /* ContentView.swift in Sources */,
 				F4A9432F2A08EF22002E979D /* CarouselsApp.swift in Sources */,
 			);
