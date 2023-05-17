@@ -9,8 +9,12 @@
 import SwiftUI
 
 struct ContentView: View {
+    let pages: [CustomPage] = [.init(color: .red), .init(color: .yellow), .init(color: .blue), .init(color: .pink), .init(color: .orange)]
     var body: some View {
-        InfiniteCarousel()
+        ReusableInfiniteCarousel(pages: pages, showPageControls: true, pageControlOffset: -20) { page in
+            RoundedRectangle(cornerRadius: 25)
+                .fill(page.color.gradient)
+        }
     }
 }
 

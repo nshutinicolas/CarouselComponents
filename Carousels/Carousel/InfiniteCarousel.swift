@@ -11,6 +11,7 @@ import SwiftUI
 protocol CustomIdentifiable: Equatable {
     associatedtype ID: Hashable
     var customId: ID { get set }
+    var stringId: String { get set }
 }
 
 extension CustomIdentifiable where Self: Identifiable {
@@ -23,17 +24,12 @@ extension CustomIdentifiable where Self: AnyObject, ID == ObjectIdentifier {
 
 extension CustomIdentifiable {
     static func == (lhs: Self, rhs: Self) -> Bool {
-        lhs.customId == rhs.customId
+        lhs.customId == rhs.customId && lhs.stringId == rhs.stringId
     }
     
     func hash(into hasher: inout Hasher) {
         hasher.combine(customId)
     }
-}
-
-struct Page: Identifiable, Hashable {
-    var id: UUID = .init()
-    let color: Color
 }
 
 struct OffsetPreferenceKey: PreferenceKey {
@@ -61,90 +57,9 @@ extension View {
     }
 }
 
-struct InfiniteCarousel: View {
-    @State private var currentPage: String = ""
-    @State var pagePadding: CGFloat = 100
-    @State private var pages: [Page] = []
-    @State private var infinitePages: [Page] = []
-    
-    var body: some View {
-        NavigationStack {
-            GeometryReader {
-                let size = $0.size
-                TabView(selection: $currentPage) {
-                    ForEach(infinitePages) { page in
-                        RoundedRectangle(cornerRadius: 25)
-                            .fill(page.color.gradient)
-                            .tag(page.id.uuidString)
-                            .frame(width: size.width - 100, height: size.height)
-                            .offsetX(currentPage == page.id.uuidString) { rect in
-                                let minX = rect.minX
-                                let pageOffset = minX - (size.width * CGFloat(getInfinitePageIndex(for: page)))
-                                let progress = pageOffset / size.width
-                                
-                                if -progress < 1.0 {
-                                    guard let lastPage = infinitePages.last else { return }
-                                    currentPage = lastPage.id.uuidString
-                                }
-                                
-                                if -progress > CGFloat(infinitePages.count - 1) {
-                                    guard infinitePages.indices.contains(1) else { return }
-                                    currentPage = infinitePages[1].id.uuidString
-                                }
-                            }
-                    }
-                }
-                .navigationTitle("Infinite Carousel")
-                .tabViewStyle(.page(indexDisplayMode: .never))
-                .overlay(alignment: .bottom) {
-                    PageControls(currentPage: getCurrentPageIndex(for: currentPage), totalPages: pages.count)
-                        .offset(y: -20)
-                }
-                .onChange(of: currentPage) { index in
-                    /// This works but not the best
-//                    if index == infinitePages.last?.id.uuidString {
-//                        currentPage = pages[0].id.uuidString
-//                    }
-//                    if index == infinitePages.first?.id.uuidString {
-//                        currentPage = pages[pages.count - 1].id.uuidString
-//                    }
-                }
-            }
-        }
-        .onAppear {
-            let mockPages: [Page] = [.init(color: .red), .init(color: .brown),
-                                     .init(color: .yellow), .init(color: .green),
-                                     .init(color: .blue)]
-            pages.append(contentsOf: mockPages)
-            infinitePages.append(contentsOf: pages)
-            
-            // Work on appending First and last pages to infinite pages
-            if var firstPage = infinitePages.first, var lastPage = infinitePages.last {
-                // Update the current page
-                currentPage = firstPage.id.uuidString
-                
-                // Modify UUID for first and last pages
-                firstPage.id = .init()
-                lastPage.id = .init()
-                // Append The first page to make it the last
-                infinitePages.append(firstPage)
-                // Insert last page to make it the first
-                infinitePages.insert(lastPage, at: 0)
-            }
-        }
-    }
-    
-    func getInfinitePageIndex(for page: Page) -> Int {
-        return infinitePages.firstIndex(of: page) ?? 0
-    }
-    
-    func getCurrentPageIndex(for id: String) -> Int {
-        return pages.firstIndex { $0.id.uuidString == id } ?? 0
-    }
-}
-
 struct CustomPage: CustomIdentifiable {
     var customId: UUID = .init()
+    var stringId: String = UUID().uuidString
     let color: Color
 }
 
@@ -154,7 +69,7 @@ struct ReusableInfiniteCarousel<CardView:View, T:CustomIdentifiable> : View {
     let showPageControls: Bool
     let pageControlOffset: CGFloat
     @State private var infinitePages: [T] = []
-    @State var currentPage: T.ID?
+    @State private var currentPage: String = ""
     
     init(pages: [T], showPageControls: Bool = false, pageControlOffset: CGFloat = 0, card: @escaping (T) -> CardView) {
         self.pages = pages
@@ -170,28 +85,31 @@ struct ReusableInfiniteCarousel<CardView:View, T:CustomIdentifiable> : View {
                 TabView(selection: $currentPage) {
                     ForEach(infinitePages, id: \.customId) { page in
                         card(page)
-                            .tag(page.customId)
-                            .offsetX(currentPage == page.customId) { rect in
+                            .tag(page.stringId)
+                            .offsetX(true) { rect in
                                 let minX = rect.minX
-                                let pageOffset = minX - (size.width * CGFloat(getInfinitePageIndex(for: page)))
+                                let pageOffset = minX - (size.width * CGFloat(getCurrentInfinitePageIndex(for: page)))
                                 let progress = pageOffset / size.width
                                 
+                                print("Current:", getCurrentPageIndex(with: page.stringId))
+                                print("CurrentInfinite:", getCurrentInfinitePageIndex(for: page))
                                 if -progress < 1.0 {
                                     guard let lastPage = infinitePages.last else { return }
-                                    currentPage = lastPage.customId
+                                    currentPage = lastPage.stringId
                                 }
                                 
                                 if -progress > CGFloat(infinitePages.count - 1) {
                                     guard infinitePages.indices.contains(1) else { return }
-                                    currentPage = infinitePages[1].customId
+                                    currentPage = infinitePages[1].stringId
                                 }
                             }
                     }
                 }
+                .navigationTitle("Infinite carousel")
                 .tabViewStyle(.page(indexDisplayMode: .never))
                 .overlay(alignment: .bottom) {
-                    if showPageControls, let currentPage {
-                        PageControls(currentPage: getPageIndex(with: currentPage), totalPages: pages.count)
+                    if showPageControls, let currentPage = currentPage {
+                        PageControls(currentPage: getCurrentPageIndex(with: currentPage), totalPages: pages.count)
                             .offset(y: pageControlOffset)
                     }
                 }
@@ -200,34 +118,36 @@ struct ReusableInfiniteCarousel<CardView:View, T:CustomIdentifiable> : View {
         .onAppear {
             infinitePages.append(contentsOf: pages)
             
-            currentPage = pages[0].customId
+            currentPage = pages[0].stringId
             guard var firstPage = pages.first, var lastPage = pages.last else { return }
             guard let firstPageId = UUID() as? T.ID, let lastPageId = UUID() as? T.ID else { return }
             firstPage.customId = firstPageId
+            firstPage.stringId = UUID().uuidString
             lastPage.customId = lastPageId
-            
+            lastPage.stringId = UUID().uuidString
+
             infinitePages.append(firstPage)
             infinitePages.insert(lastPage, at: 0)
         }
     }
     
-    func getInfinitePageIndex(for page: T) -> Int {
+    func getCurrentInfinitePageIndex(for page: T) -> Int {
         infinitePages.firstIndex(of: page) ?? 0
     }
     
-    func getPageIndex(with id: T.ID) -> Int {
-        pages.firstIndex { $0.customId == id } ?? 0
+    func getCurrentPageIndex(with id: String) -> Int {
+        return pages.firstIndex { $0.stringId == id } ?? 0
     }
 }
 
 
 struct InfiniteCarousel_Previews: PreviewProvider {
-    static let pages: [CustomPage] = [.init(color: .red), .init(color: .yellow)]
+    static let pages: [CustomPage] = [.init(color: .red), .init(color: .yellow), .init(color: .blue), .init(color: .black), .init(color: .brown)]
     static var previews: some View {
-        ReusableInfiniteCarousel(pages: pages, showPageControls: true, pageControlOffset: -20) { page in
-            RoundedRectangle(cornerRadius: 25)
-                .fill(page.color.gradient)
-        }
-//        InfiniteCarousel()
+            ReusableInfiniteCarousel(pages: pages, showPageControls: true, pageControlOffset: -20) { page in
+                RoundedRectangle(cornerRadius: 25)
+                    .fill(page.color.gradient)
+            }
+            .previewDisplayName("Reusable")
     }
 }
