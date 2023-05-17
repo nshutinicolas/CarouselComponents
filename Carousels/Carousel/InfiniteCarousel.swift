@@ -86,7 +86,7 @@ struct ReusableInfiniteCarousel<CardView:View, T:CustomIdentifiable> : View {
                     ForEach(infinitePages, id: \.customId) { page in
                         card(page)
                             .tag(page.stringId)
-                            .offsetX(true) { rect in
+                            .offsetX(currentPage == page.stringId) { rect in
                                 let minX = rect.minX
                                 let pageOffset = minX - (size.width * CGFloat(getCurrentInfinitePageIndex(for: page)))
                                 let progress = pageOffset / size.width
