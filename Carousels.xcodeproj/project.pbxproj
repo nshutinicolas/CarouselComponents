@@ -15,7 +15,7 @@
 		F4A9434A2A08EF28002E979D /* CarouselsUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4A943492A08EF28002E979D /* CarouselsUITests.swift */; };
 		F4A9434C2A08EF28002E979D /* CarouselsUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4A9434B2A08EF28002E979D /* CarouselsUITestsLaunchTests.swift */; };
 		F4A9435A2A08F1B3002E979D /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4A943592A08F1B3002E979D /* HomeView.swift */; };
-		F4A9435C2A08F1C8002E979D /* InfiniteCarousel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4A9435B2A08F1C8002E979D /* InfiniteCarousel.swift */; };
+		F4A9435C2A08F1C8002E979D /* ReusableInfiniteCarousel1.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4A9435B2A08F1C8002E979D /* ReusableInfiniteCarousel1.swift */; };
 		F4A9435F2A08F40B002E979D /* PageControls.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4A9435E2A08F40B002E979D /* PageControls.swift */; };
 /* End PBXBuildFile section */
 
@@ -48,7 +48,7 @@
 		F4A943492A08EF28002E979D /* CarouselsUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CarouselsUITests.swift; sourceTree = "<group>"; };
 		F4A9434B2A08EF28002E979D /* CarouselsUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CarouselsUITestsLaunchTests.swift; sourceTree = "<group>"; };
 		F4A943592A08F1B3002E979D /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
-		F4A9435B2A08F1C8002E979D /* InfiniteCarousel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfiniteCarousel.swift; sourceTree = "<group>"; };
+		F4A9435B2A08F1C8002E979D /* ReusableInfiniteCarousel1.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReusableInfiniteCarousel1.swift; sourceTree = "<group>"; };
 		F4A9435E2A08F40B002E979D /* PageControls.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PageControls.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -139,7 +139,7 @@
 		F4A943582A08F197002E979D /* Carousel */ = {
 			isa = PBXGroup;
 			children = (
-				F4A9435B2A08F1C8002E979D /* InfiniteCarousel.swift */,
+				F4A9435B2A08F1C8002E979D /* ReusableInfiniteCarousel1.swift */,
 			);
 			path = Carousel;
 			sourceTree = "<group>";
@@ -284,7 +284,7 @@
 			files = (
 				F4A9435A2A08F1B3002E979D /* HomeView.swift in Sources */,
 				F4A9435F2A08F40B002E979D /* PageControls.swift in Sources */,
-				F4A9435C2A08F1C8002E979D /* InfiniteCarousel.swift in Sources */,
+				F4A9435C2A08F1C8002E979D /* ReusableInfiniteCarousel1.swift in Sources */,
 				F4A943312A08EF22002E979D /* ContentView.swift in Sources */,
 				F4A9432F2A08EF22002E979D /* CarouselsApp.swift in Sources */,
 			);
@@ -373,7 +373,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 16.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -427,7 +427,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 16.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SDKROOT = iphoneos;
@@ -453,6 +453,7 @@
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -482,6 +483,7 @@
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
